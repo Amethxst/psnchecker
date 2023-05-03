@@ -1,0 +1,7 @@
+os
+sys
+json
+PSNAWP
+curses
+webbrowser
+colorama
