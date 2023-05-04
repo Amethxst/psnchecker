@@ -163,17 +163,16 @@ for i in range(0,1000):
            #SETUP HEX
            codicehex = idonline_obj.account_id                             #faccio chiamare la str OG come voglio
            hex1=int(codicehex)                                             #creo variabile 'hex1' che è int del codicehex
-           hexfinale = hex(hex1)                                           #creo variabile 'hexfinale' che converte in hex la variabile hex1
+           hexfinale = '{:0>16}'.format(hex(hex1)[2:])                     #aggiunge zeri iniziali per raggiungere la lunghezza di 16 caratteri esadecimali
+           hexfinale = hexfinale.replace(" ", "")                          #rimuove eventuali spazi dalla stringa esadecimale
 
-           if len(hexfinale)==16:
-               print("HEX: "+"00"+(hexfinale[2:])) 
-           elif len(hexfinale)==17:
-               print("HEX: "+"0"+(hexfinale[2:]))
-           elif len(hexfinale)==18:
-               print("HEX: "+(hexfinale[2:])) 
+           if len(hexfinale) % 2 != 0: #aggiunge uno zero iniziale se la lunghezza della stringa esadecimale è dispari
+            hexfinale = '0' + hexfinale
+
+           print("HEX:", hexfinale)
 
          #SETUP ENDIAN
-           byte_array = bytearray.fromhex(hexfinale[2:])
+           byte_array = bytearray.fromhex(hexfinale)
            byte_array.reverse()
            output_hex = ''.join(format(x, '02x') for x in byte_array)
            print("Endian:", output_hex)
